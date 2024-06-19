@@ -1,5 +1,5 @@
 import time
-
+import re
 import pandas as pd
 import altair as alt
 import streamlit as st
@@ -91,9 +91,12 @@ def generate_page():
         is_submitted = st.form_submit_button('확인')
     if not is_submitted:
         return
-    # g_total, g_ind = load_data(st.secrets['password'], option_course, option_id, option_email, option_phone)
+    option_id = re.sub('\s', '', option_id)
+    option_phone = re.sub('[^0-9]', '', option_phone)
+    option_email = re.sub('\s', '', option_email)
     with st.spinner('성적 확인 중...'):
-        g_total, g_ind = load_data(st.secrets['shared_key'], '인간-컴퓨터 상호작용', '201811614', 'keroro06108@gmail.com', '01055364640')
+        # g_total, g_ind = load_data(st.secrets['shared_key'], '인간-컴퓨터 상호작용', '201811614', 'keroro06108@gmail.com', '01055364640')
+        g_total, g_ind = load_data(st.secrets['shared_key'], option_course, option_id, option_email, option_phone)
         time.sleep(1)
 
     n = g_total.shape[0]
