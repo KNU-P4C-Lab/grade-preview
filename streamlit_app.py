@@ -128,13 +128,17 @@ def generate_page():
                 cols[i % 4].metric(label=k, value=f'{v:.2f}')
             i = i + 1
 
-    with st.container(border=True):
-        st.markdown('## 피드백')
-        for l in g_ind['Feedback'].split('; '):
-            st.markdown(f'* {l}')
+    if type(g_ind['Feedback']) is str:
+        with st.container(border=True):
+            st.markdown('## 감점 요인')
+            for l in g_ind['Feedback'].split('; '):
+                st.markdown(f'* {l}')
 
     with st.container(border=True):
-        st.markdown('## 출결')
+        st.markdown('## 지각/결석')
+        cols = st.columns(2)
+        cols[0].metric(label='지각', value=f'{g_ind["Lateness"]} 회')
+        cols[1].metric(label='결석', value=f'{g_ind["Absence"]} 회')
 
     with st.container(border=True):
         st.markdown('## 성적 분포')
