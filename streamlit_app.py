@@ -130,7 +130,7 @@ def generate_page():
 
     if type(g_ind['Feedback']) is str:
         with st.container(border=True):
-            st.markdown('## 감점 요인')
+            st.markdown('## 피드백')
             for l in g_ind['Feedback'].split('; '):
                 st.markdown(f'* {l}')
 
